@@ -4,5 +4,81 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h2>Entrar</h2>
+
+<div class="container-fluid h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100 pb-3">
+        <div class="col-md-9 col-lg-6 col-xl-5 text-center text-white">
+            <h1>+ Livros</h1>
+            <h2>Aprenda</h2>
+            <h2>e Compartilhe</h2>
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-6 offset-xl-1 card h-100 bg-light">
+            @using (Html.BeginForm("Entrar", "Login", FormMethod.Post, new { @id = "form-Entrarlogin" }))
+            {
+                <div class="col-sm-12 px-sm-3 px-lg-5">
+                    <h2 class="text-dark py-5">Entre em sua conta</h2>
+
+                    <div class="tab">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                @Html.Label("E-mail", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                                @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @placeholder = "Digite o Email", @required = true })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                @Html.Label("Senha", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                                @Html.TextBoxFor(x => x.TxSenha, "", new { @class = "form-control", @placeholder = "Digite a senha", @type = "password", @required = true })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <p class="text-center">Ainda não possui uma conta ? <a href="./index">Clique aqui</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="overflow:auto;">
+                        <div style="float:right;">
+                            <button type="submit" class="btn btn-primary" id="submit" onclick="butSubmit()" style="display: none;">Entrar</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var TabAtual = 0;
+    mostrarTab(TabAtual);
+
+    function mostrarTab(n) {
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        $("#submit").show();
+        return false;
+    }
+
+    function butSubmit() {
+        if (!validarForm()) return false;
+        document.getElementById("form-login").submit();
+        return false;
+    }
+
+    function validarForm() {
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[TabAtual].getElementsByTagName("input");
+        for (i = 0; i < y.length; i++) {
+            if (y[i].value == "") {
+                y[i].className += " invalid";
+                valid = false;
+            }
+        }
+        if (valid) {
+            document.getElementsByClassName("step")[TabAtual].className += " finish";
+        }
+        return valid;
+    }
+</script>
 
