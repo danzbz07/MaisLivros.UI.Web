@@ -1,0 +1,84 @@
+﻿@model UsuarioTESTE
+@{
+    ViewBag.Title = "MeuPerfil";
+    Layout = "~/Views/Shared/_LayoutMeuPerfil.cshtml";
+}
+
+<div class="container-fluid h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-6 col-lg-6 col-xl-12 card h-100 rounded-xxl w-100 p-0 align-items-center" style="background-color: #D9D9D9;">
+            <div class="h-25 w-100 p-0 row" style="border-bottom:5px solid black;">
+                <div class="col-lg-3">
+                    <img src="https://mlogu6g7z5ex.i.optimole.com/cb:HsOy~51645/w:1080/h:528/q:90/https://lis.facens.br/wp-content/uploads/2023/02/Polish_20230208_182500262.png" class="rounded img-fluid h-100" />
+                </div>
+                <div class="col align-self-end">
+                    <h2>@Model.TxNome</h2>
+                </div>
+            </div>
+            <div class="h-75 w-100 p-3">
+                @using (Html.BeginForm("MeuPerfil", "MeuPerfil", FormMethod.Post, new { @id = "form-MeuPerfil" }))
+                {
+                    var CorForm = "background: #EDECEC";
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @Html.Label("Nome", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                            @Html.TextBoxFor(x => x.TxNome, "", new { @class = "form-control", @style= CorForm, @required = true })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @Html.Label("E-mail", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @Html.Label("CPF / CNPJ", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @Html.Label("Telefone", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                            @Html.TextBoxFor(x => x.TxTelefone, "", new { @class = "form-control", @style = CorForm, @required = true })
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            @Html.Label("Endereço", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                            @Html.TextBoxFor(x => x.TxEndereco, "", new { @class = "form-control", @style = CorForm, @required = true })
+                        </div>
+                    </div>
+                    <div style="overflow:auto;">
+                        <div style="float:right;">
+                            <button type="button" class="btn btn-secondary" id="btnEditar" onclick="ativaEditar()" style="background: #4692E8;">Editar</button>
+                            <button type="button" class="btn btn-secondary" id="btnCancelar" onclick="desativaEditar()" style="display: none; background: #E84646; ">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" id="btnSalvar" onclick="salvarEdicao()"style="display: none; background: #4692E8; ">Salvar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    function ativaEditar() {
+        CorForm = "background: #FFFEFE";
+        document.getElementById("btnCancelar").style.display = "inline";
+        document.getElementById("btnSalvar").style.display = "inline";
+        document.getElementById("btnEditar").style.display = "none";
+    };
+
+    function desativaEditar() {
+        document.getElementById("btnCancelar").style.display = "none";
+        document.getElementById("btnSalvar").style.display = "none";
+        document.getElementById("btnEditar").style.display = "inline";
+    };
+
+    function salvarEdicao() {
+
+    }
+    
+</script>
