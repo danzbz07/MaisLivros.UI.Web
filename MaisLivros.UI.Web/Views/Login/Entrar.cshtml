@@ -1,6 +1,6 @@
 ﻿@model UsuarioMOD
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Entrar";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
@@ -60,25 +60,9 @@
     }
 
     function butSubmit() {
-        if (!validarForm()) return false;
-        document.getElementById("form-login").submit();
+        document.getElementById("form-Entrarlogin").submit();
+        window.location.href = "http://programminghead.com";
         return false;
-    }
-
-    function validarForm() {
-        var x, y, i, valid = true;
-        x = document.getElementsByClassName("tab");
-        y = x[TabAtual].getElementsByTagName("input");
-        for (i = 0; i < y.length; i++) {
-            if (y[i].value == "") {
-                y[i].className += " invalid";
-                valid = false;
-            }
-        }
-        if (valid) {
-            document.getElementsByClassName("step")[TabAtual].className += " finish";
-        }
-        return valid;
     }
 </script>
 

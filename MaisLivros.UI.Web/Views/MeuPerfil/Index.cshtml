@@ -15,38 +15,38 @@
                     <h2>@Model.TxNome</h2>
                 </div>
             </div>
-            <div class="h-75 w-100 p-3">
+            <div class="h-75 w-50 p-3">
                 @using (Html.BeginForm("MeuPerfil", "MeuPerfil", FormMethod.Post, new { @id = "form-MeuPerfil" }))
                 {
                     var CorForm = "background: #EDECEC";
                     <div class="row mb-3">
                         <div class="col-12">
                             @Html.Label("Nome", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                            @Html.TextBoxFor(x => x.TxNome, "", new { @class = "form-control", @style= CorForm, @required = true })
+                            @Html.TextBoxFor(x => x.TxNome, "", new { @class = "form-control", @style= CorForm, @required = true, @readonly = "true" })
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
                             @Html.Label("E-mail", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true })
+                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true, @readonly = "true" })
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
                             @Html.Label("CPF / CNPJ", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true })
+                            @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @style = CorForm, @required = true, @readonly = "true" })
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
                             @Html.Label("Telefone", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                            @Html.TextBoxFor(x => x.TxTelefone, "", new { @class = "form-control", @style = CorForm, @required = true })
+                            @Html.TextBoxFor(x => x.TxTelefone, "", new { @class = "form-control", @style = CorForm, @required = true, @readonly = "true" })
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
                             @Html.Label("Endereço", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                            @Html.TextBoxFor(x => x.TxEndereco, "", new { @class = "form-control", @style = CorForm, @required = true })
+                            @Html.TextBoxFor(x => x.TxEndereco, "", new { @class = "form-control", @style = CorForm, @required = true, @readonly = "true" })
                         </div>
                     </div>
                     <div style="overflow:auto;">
@@ -65,16 +65,29 @@
 
 <script>
     function ativaEditar() {
-        CorForm = "background: #FFFEFE";
         document.getElementById("btnCancelar").style.display = "inline";
         document.getElementById("btnSalvar").style.display = "inline";
         document.getElementById("btnEditar").style.display = "none";
+
+        document.getElementById("TxNome").style.backgroundColor = "#FFFEFE";
+        document.getElementById("TxTelefone").style.backgroundColor = "#FFFEFE";
+        document.getElementById("TxEndereco").style.backgroundColor = "#FFFEFE";
+        document.getElementById("TxEmail").style.backgroundColor = "#FFFEFE";
+
+        //$("#Nome").removeAttr("readonly");
+
+
     };
 
     function desativaEditar() {
         document.getElementById("btnCancelar").style.display = "none";
         document.getElementById("btnSalvar").style.display = "none";
         document.getElementById("btnEditar").style.display = "inline";
+
+        document.getElementById("TxNome").style.backgroundColor = "#EDECEC";
+        document.getElementById("TxTelefone").style.backgroundColor = "#EDECEC";
+        document.getElementById("TxEndereco").style.backgroundColor = "#EDECEC";
+        document.getElementById("TxEmail").style.backgroundColor = "#EDECEC";
     };
 
     function salvarEdicao() {
