@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MaisLivros.Models
@@ -26,8 +30,92 @@ namespace MaisLivros.Models
 
         public String AoAdmin { get; set; }
 
+        public String links { get; set; }
+
         public DateTime DtCadastro { get; set; }
 
-        
+        public PessoaFisicaMOD PessoaFisica { get; set; }
+
+        public void getNome(String txNome)
+        {
+            TxNome = txNome;
+        }
+
+
+        public UsuarioMOD()
+        {
+            PessoaFisica = new PessoaFisicaMOD();
+        }
+
+        public Boolean getCdUsuarioSequence(String TxEmail)
+        {
+            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/SeqUsuario";
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public UsuarioMOD getUsuario(String TxEmail)
+        {
+            UsuarioMOD Usuario = new UsuarioMOD();
+
+            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario?TxEmail=" + TxEmail;
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                Usuario = JsonConvert.DeserializeObject<UsuarioMOD>(content);
+                
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.StatusCode}");
+            }
+
+            return Usuario;
+        }
+
+        public Int32 AutenticarUsuario(String TxEmail, String TxSenha)
+        {
+            Int32 CdUsuario = 0;
+            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario?TxEmail=" + TxEmail + "&TxSenha=" + TxSenha;
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+
+            var content = response.Content.ReadAsStringAsync().Result;
+
+            JObject responseJson = JObject.Parse(content);
+            CdUsuario = (int)responseJson["cdusuario"];
+
+            return CdUsuario;
+
+        }
+
+        public Boolean CadastrarUsuario(UsuarioMOD Usuario)
+        {
+            bool cadastrou = false;
+
+            var client = new HttpClient();
+            var conteudo = JsonConvert.SerializeObject(Usuario);
+            var stringContent = new StringContent(conteudo, System.Text.Encoding.UTF8, "application/json");
+            string caminho = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario";
+            var resposta = client.PostAsync(caminho, stringContent);
+            var resultado = resposta.Result.Content.ReadAsStringAsync();
+
+            return cadastrou;
+        }
+
     }
 }
