@@ -28,5 +28,9 @@ namespace MaisLivros.UI.Web.Models
         public DateTime DtCadastro { get; set; }
 
         public String TxCpf { get; set; }
+
+        public String TxCnpj { get; set; }
+
+        public String ChkTpPessoa { get; set; }
     }
 }

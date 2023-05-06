@@ -1,4 +1,5 @@
 ﻿using MaisLivros.Models;
+using MaisLivros.Repository;
 using MaisLivros.UI.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,87 @@ namespace MaisLivros.UI.Web.Controllers
 {
     public class LoginController : Controller
     {
+
+        #region Repositorios
+
+        UsuarioREP _repositorioUsuario = new UsuarioREP();
+
+        #endregion
+
         // GET: Login
-        public ActionResult Index()
+        public ActionResult CadastrarUsuario()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(UsuarioViewMOD dadosTela)
+        public ActionResult CadastrarUsuario(UsuarioViewMOD dadosTela)
         {
 
-            UsuarioMOD Usuario = new UsuarioMOD();
-            Usuario.TxEmail = dadosTela.TxEmail;
-            Usuario.TxEndereco = dadosTela.TxEndereco;
-            Usuario.TxSenha = dadosTela.TxSenha;
-            Usuario.TxLogin = dadosTela.TxLogin;
-            Usuario.TxTelefone = dadosTela.TxTelefone;
-            Usuario.TxNome = dadosTela.TxNome;
-
-            //Se nao exister o usuriao com o CPF
-            if (!Usuario.PessoaFisica.VerificarExiste(dadosTela.TxCpf))
+            if (dadosTela.ChkTpPessoa == "F")
             {
-                Usuario.CadastrarUsuario(Usuario);
-                Usuario.CdUsuario = Usuario.AutenticarUsuario(Usuario.TxEmail, Usuario.TxSenha);
-                Usuario.PessoaFisica.Cadastrar(dadosTela.TxCpf, Usuario.CdUsuario);
+                PessoaFisicaMOD PessoaFisica = new PessoaFisicaMOD(dadosTela.TxCpf);
+
+                //Se nao exister o usuario com o CPF
+                if (!_repositorioUsuario.VerificarExistePessoaFisica(PessoaFisica.Cpf))
+                {
+                    PessoaFisica.TxEmail = dadosTela.TxEmail;
+                    PessoaFisica.TxEndereco = dadosTela.TxEndereco;
+                    PessoaFisica.TxSenha = dadosTela.TxSenha;
+                    PessoaFisica.TxLogin = dadosTela.TxLogin;
+                    PessoaFisica.TxTelefone = dadosTela.TxTelefone;
+                    PessoaFisica.TxNome = dadosTela.TxNome;
+                    if (_repositorioUsuario.CadastrarPessoaFisica(PessoaFisica))
+                    {
+                        TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
+                        return RedirectToAction("Entrar");
+                    }
+                    else
+                    {
+                        TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar ";
+                        return View(dadosTela);
+                    }
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o Usuário já possui Cadastro ";
+                    return View(dadosTela); 
+                }
             }
 
+            if (dadosTela.ChkTpPessoa == "J")
+            {
+                PessoaJuridicaMOD PessoaJuridica = new PessoaJuridicaMOD(dadosTela.TxCnpj);
 
-            return View();
+                //Se nao exister o usuario com o CPF
+                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.Cnpj))
+                {
+                    PessoaJuridica.TxEmail = dadosTela.TxEmail;
+                    PessoaJuridica.TxEndereco = dadosTela.TxEndereco;
+                    PessoaJuridica.TxSenha = dadosTela.TxSenha;
+                    PessoaJuridica.TxLogin = dadosTela.TxLogin;
+                    PessoaJuridica.TxTelefone = dadosTela.TxTelefone;
+                    PessoaJuridica.TxNome = dadosTela.TxNome;
+                    if (_repositorioUsuario.CadastrarPessoaJuridica(PessoaJuridica))
+                    {
+                        TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
+                        return RedirectToAction("Entrar");
+                    }
+                    else
+                    {
+                        TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar ";
+                        return View(dadosTela);
+                    }
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o Usuário já possui Cadastro ";
+                    return View(dadosTela);
+                }
+            }
+
+            return View(dadosTela);
+
         }
 
         public ActionResult Entrar()

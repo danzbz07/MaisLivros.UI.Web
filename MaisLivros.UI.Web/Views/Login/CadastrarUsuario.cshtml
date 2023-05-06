@@ -12,7 +12,7 @@
             <h2>e Compartilhe</h2>
         </div>
         <div class="col-md-8 col-lg-6 col-xl-6 offset-xl-1 card h-100 bg-light">
-            @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @id = "form-login" }))
+            @using (Html.BeginForm("CadastrarUsuario", "Login", FormMethod.Post, new { @id = "form-login" }))
             {
                 <div class="col-sm-12 px-sm-3 px-lg-5">
                     <h2 class="text-dark py-5">Crie sua conta</h2>
@@ -47,13 +47,13 @@
                             <div class="col-12">
                                 <label class="font-weight-bold">Tipo de Conta</label> <span class="text-warning display-17px font-weight-bold">*</span>
                                 <div class="form-check p-lg-0">
-                                    <input class="form-check-input" type="radio" name="tpConta" id="pessoaFisica" value="F" checked>
+                                    @Html.RadioButtonFor(x => x.ChkTpPessoa, "F", new { @id = "pessoaFisica", @checked = "true", @name = "tpConta", @class = "form-check-input" } )
                                     <label class="form-check-label" for="pessoaFisica">
                                         Pessoa Fisica
                                     </label>
                                 </div>
                                 <div class="form-check p-lg-0">
-                                    <input class="form-check-input" type="radio" name="tpConta" id="pessoaJuridica" value="J">
+                                    @Html.RadioButtonFor(x => x.ChkTpPessoa, "J", new { @id = "pessoaJuridica", @name = "tpConta", @class = "form-check-input" })
                                     <label class="form-check-label" for="pessoaJuridica">
                                         Pessoa Juridica
                                     </label>
@@ -63,12 +63,12 @@
                         <div class="row mb-3">
                             <div class="col-12" id="Cpf">
                                 @Html.Label("CPF:", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                                @Html.TextBoxFor(x => x.TxCpf, "", new { @class = "form-control", @placeholder = "Digite o CPF", @required = true })
+                                @Html.TextBoxFor(x => x.TxCpf, "", new { @class = "form-control", @placeholder = "Digite o CPF"})
                             </div>
-                            @*<div class="col-12" id="Cnpj">
+                            <div class="col-12" id="Cnpj">
                                 @Html.Label("CNPJ:", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                                @Html.TextBoxFor(x => x.TxEmail, "", new { @class = "form-control", @placeholder = "Digite o CNPJ", @required = true })
-                            </div>*@
+                                @Html.TextBoxFor(x => x.TxCnpj, "", new { @class = "form-control", @placeholder = "Digite o CNPJ" })
+                            </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12">
@@ -105,13 +105,23 @@
 <script>
     $('#Cnpj').fadeOut()
 
-    $('input[type=radio][name=tpConta]').change(function () {
+    $('.form-check-input').change(function () {
+        console.log('entrou', this.value)
+        var cpf = $('#Cpf');
+        var cnpj = $('#Cnpj');
+
         if (this.value == 'F') {
             $('#Cpf').fadeIn("slow")
+            
+            cpf.attr('required', 'required');
+            cnpj.removeAttr('required');
+
             $('#Cnpj').fadeOut("slow")
         }
         else if (this.value == 'J') {
             $('#Cnpj').fadeIn("slow")
+            cnpj.attr('required', 'required');
+            cpf.removeAttr('required');
             $('#Cpf').fadeOut("slow")
         }
     });

@@ -41,12 +41,6 @@ namespace MaisLivros.Models
             TxNome = txNome;
         }
 
-
-        public UsuarioMOD()
-        {
-            PessoaFisica = new PessoaFisicaMOD();
-        }
-
         public Boolean getCdUsuarioSequence(String TxEmail)
         {
             var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/SeqUsuario";
@@ -101,20 +95,6 @@ namespace MaisLivros.Models
 
             return CdUsuario;
 
-        }
-
-        public Boolean CadastrarUsuario(UsuarioMOD Usuario)
-        {
-            bool cadastrou = false;
-
-            var client = new HttpClient();
-            var conteudo = JsonConvert.SerializeObject(Usuario);
-            var stringContent = new StringContent(conteudo, System.Text.Encoding.UTF8, "application/json");
-            string caminho = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario";
-            var resposta = client.PostAsync(caminho, stringContent);
-            var resultado = resposta.Result.Content.ReadAsStringAsync();
-
-            return cadastrou;
         }
 
     }
