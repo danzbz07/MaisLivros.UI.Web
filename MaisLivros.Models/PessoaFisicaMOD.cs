@@ -11,7 +11,7 @@ namespace MaisLivros.Models
 {
     public class PessoaFisicaMOD : UsuarioMOD
     {
-        public String Cpf { get; set; }
+        private String Cpf;
 
 
         //Intanciar Pessoa Fisica
@@ -20,6 +20,11 @@ namespace MaisLivros.Models
             //Remover os caracteres especial
             cpf = Regex.Replace(cpf, @"[^0-9]", "");
             Cpf = cpf;
+        }
+
+        public String getCPF()
+        {
+            return Cpf;
         }
 
     }

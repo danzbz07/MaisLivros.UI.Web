@@ -12,90 +12,132 @@ namespace MaisLivros.Models
 {
     public class UsuarioMOD
     {
-        public Int32 CdUsuario { get; set; }
+        #region Prop
 
-        public String TxNome { get; set; }
+        private Int32 CdUsuario;
 
-        public String TxEndereco { get; set; }
+        private String TxNome;
 
-        public String TxTelefone { get; set; }
+        private String TxEndereco;
 
-        public String TxLogin { get; set; }
+        private String TxTelefone;
 
-        public String TxSenha { get; set; }
+        private String TxSenha;
 
-        public String TxEmail { get; set; }
+        private String TxEmail;
 
-        public String AoAtivo { get; set; }
+        private String AoAtivo;
 
-        public String AoAdmin { get; set; }
+        private String AoAdmin;
 
-        public String links { get; set; }
+        private DateTime DtCadastro;
 
-        public DateTime DtCadastro { get; set; }
+        #endregion
 
-        public PessoaFisicaMOD PessoaFisica { get; set; }
+        #region Set
 
-        public void getNome(String txNome)
+        public void setCdUsuario(Int32 cdUsuario)
+        {
+            CdUsuario = cdUsuario;
+        }
+
+        public void setTxNome(String txNome)
         {
             TxNome = txNome;
         }
-
-        public Boolean getCdUsuarioSequence(String TxEmail)
+        
+        public void setTxEndereco(String txEndereco)
         {
-            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/SeqUsuario";
-            var httpClient = new HttpClient();
+            TxEndereco = txEndereco;
+        }
 
-            var response = httpClient.GetAsync(url).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        public void setTxTelefone(String txTelefone)
+        {
+            TxTelefone = txTelefone;
+        }
+
+        public void setTxLogin(String txLogin)
+        {
+            TxTelefone = txLogin;
+        }
+
+        public void setTxSenha(String txSenha)
+        {
+            TxSenha = txSenha;
+        }
+
+        public void setTxEmail(String txEmail)
+        {
+            TxEmail = txEmail;
+        }
+
+        public void setAoAtivo(String aoAtivo)
+        {
+            AoAtivo = aoAtivo;
+        }
+
+        public void setAoAdmin(String aoAdmin)
+        {
+            AoAdmin = aoAdmin;
         }
 
 
-        public UsuarioMOD getUsuario(String TxEmail)
+        public void setDtCadastro(DateTime dtCadastro)
         {
-            UsuarioMOD Usuario = new UsuarioMOD();
-
-            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario?TxEmail=" + TxEmail;
-            var httpClient = new HttpClient();
-
-            var response = httpClient.GetAsync(url).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var content = response.Content.ReadAsStringAsync().Result;
-                Usuario = JsonConvert.DeserializeObject<UsuarioMOD>(content);
-                
-            }
-            else
-            {
-                Console.WriteLine($"Error: {response.StatusCode}");
-            }
-
-            return Usuario;
+            DtCadastro = dtCadastro;
         }
+        #endregion
 
-        public Int32 AutenticarUsuario(String TxEmail, String TxSenha)
+        #region Get
+        public Int32 getCdUsuario()
         {
-            Int32 CdUsuario = 0;
-            var url = "https://g309596e50a65a4-upxcidadesinteligentes.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/EngenhariaSoftware/Usuario?TxEmail=" + TxEmail + "&TxSenha=" + TxSenha;
-            var httpClient = new HttpClient();
-
-            var response = httpClient.GetAsync(url).Result;
-
-            var content = response.Content.ReadAsStringAsync().Result;
-
-            JObject responseJson = JObject.Parse(content);
-            CdUsuario = (int)responseJson["cdusuario"];
-
             return CdUsuario;
-
         }
 
+        public String getTxNome()
+        {
+            return TxNome;
+        }
+
+        public String getTxEndereco()
+        {
+            return TxEndereco;
+        }
+
+        public String getTxTelefone()
+        {
+            return TxTelefone;
+        }
+
+        public String getTxLogin()
+        {
+            return TxLogin;
+        }
+
+        public String getTxSenha()
+        {
+            return TxSenha;
+        }
+
+        public String getTxEmail()
+        {
+            return TxEmail;
+        }
+
+        public String getAoAtivo()
+        {
+            return AoAtivo;
+        }
+
+        public String getAoAdmin()
+        {
+            return AoAdmin;
+        }
+
+        public DateTime getDtCadastro()
+        {
+            return DtCadastro;
+        }
+        #endregion
     }
 }

@@ -31,16 +31,17 @@ namespace MaisLivros.UI.Web.Controllers
             if (dadosTela.ChkTpPessoa == "F")
             {
                 PessoaFisicaMOD PessoaFisica = new PessoaFisicaMOD(dadosTela.TxCpf);
-                PessoaFisica.TxEmail = dadosTela.TxEmail;
+                PessoaFisica.setTxEmail(dadosTela.TxEmail);
 
                 //Se nao exister o usuario com o CPF
-                if (!_repositorioUsuario.VerificarExistePessoaFisica(PessoaFisica.Cpf, PessoaFisica.TxEmail))
+                if (!_repositorioUsuario.VerificarExistePessoaFisica(PessoaFisica.getCPF(), PessoaFisica.getTxEmail()))
                 {
-                    PessoaFisica.TxEndereco = dadosTela.TxEndereco;
-                    PessoaFisica.TxSenha = dadosTela.TxSenha;
-                    PessoaFisica.TxLogin = dadosTela.TxLogin;
-                    PessoaFisica.TxTelefone = dadosTela.TxTelefone;
-                    PessoaFisica.TxNome = dadosTela.TxNome;
+                    PessoaFisica.setTxEndereco(dadosTela.TxEndereco);
+                    PessoaFisica.setTxSenha(dadosTela.TxSenha);
+                    PessoaFisica.setTxLogin(dadosTela.TxLogin);
+                    PessoaFisica.setTxTelefone(dadosTela.TxTelefone);
+                    PessoaFisica.setTxNome(dadosTela.TxNome);
+
                     if (_repositorioUsuario.CadastrarPessoaFisica(PessoaFisica))
                     {
                         TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";
@@ -62,16 +63,17 @@ namespace MaisLivros.UI.Web.Controllers
             if (dadosTela.ChkTpPessoa == "J")
             {
                 PessoaJuridicaMOD PessoaJuridica = new PessoaJuridicaMOD(dadosTela.TxCnpj);
-                PessoaJuridica.TxEmail = dadosTela.TxEmail;
+                PessoaJuridica.setTxEmail(dadosTela.TxEmail);
 
                 //Se nao exister o usuario com o CPF
-                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.Cnpj, PessoaJuridica.TxEmail))
+                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.getCnpj(), PessoaJuridica.getTxEmail()))
                 {
-                    PessoaJuridica.TxEndereco = dadosTela.TxEndereco;
-                    PessoaJuridica.TxSenha = dadosTela.TxSenha;
-                    PessoaJuridica.TxLogin = dadosTela.TxLogin;
-                    PessoaJuridica.TxTelefone = dadosTela.TxTelefone;
-                    PessoaJuridica.TxNome = dadosTela.TxNome;
+                    PessoaJuridica.setTxEndereco(dadosTela.TxEndereco);
+                    PessoaJuridica.setTxSenha(dadosTela.TxSenha);
+                    PessoaJuridica.setTxLogin(dadosTela.TxLogin);
+                    PessoaJuridica.setTxTelefone(dadosTela.TxTelefone);
+                    PessoaJuridica.setTxNome(dadosTela.TxNome);
+
                     if (_repositorioUsuario.CadastrarPessoaJuridica(PessoaJuridica))
                     {
                         TempData["MensagemSucesso"] = "Usuário cadastrado com sucesso!";

@@ -9,8 +9,7 @@ namespace MaisLivros.Models
 {
     public class PessoaJuridicaMOD : UsuarioMOD
     {
-        public String Cnpj { get; set; }
-
+        private String Cnpj;
 
         //Intanciar Pessoa Fisica
         public PessoaJuridicaMOD(String cnpj)
@@ -18,6 +17,11 @@ namespace MaisLivros.Models
             //Remover os caracteres especial
             cnpj = Regex.Replace(cnpj, @"[^0-9]", "");
             Cnpj = cnpj;
+        }
+
+        public String getCnpj()
+        {
+            return Cnpj;
         }
 
     }
