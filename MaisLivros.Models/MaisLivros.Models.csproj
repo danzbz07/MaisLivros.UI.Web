@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="PessoaFisicaMOD.cs" />
     <Compile Include="PessoaJuridicaMOD.cs" />
+    <Compile Include="UsuarioDTO.cs" />
     <Compile Include="UsuarioTESTE.cs" />
     <Compile Include="UsuarioMOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

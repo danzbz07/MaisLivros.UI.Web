@@ -1,4 +1,5 @@
 ﻿using MaisLivros.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -12,29 +13,73 @@ namespace MaisLivros.Repository
 {
     public class UsuarioREP
     {
+        #region Login
 
-        #region PessoaFisica
+        public UsuarioDTO AutenticarUsuario(String TxEmail, String TxSenha)
+        {
+            UsuarioDTO UsuarioDto = new UsuarioDTO();
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/Login?TxEmail=" + TxEmail + "&TxSenha=" + TxSenha;
+            var httpClient = new HttpClient();
 
-        public bool CadastrarPessoaFisica(PessoaFisicaMOD Usuario)
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            Task.Delay(1000).Wait();
+            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            UsuarioDto = JsonConvert.DeserializeObject<UsuarioDTO>(content);
+            return UsuarioDto;
+
+        }
+
+        public UsuarioDTO BuscarDadosUsuario(Int32 CdUsuario)
+        {
+            UsuarioDTO UsuarioDto = new UsuarioDTO();
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/Usuario?CdUsuario=" + CdUsuario;
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            Task.Delay(1000).Wait();
+            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            UsuarioDto = JsonConvert.DeserializeObject<UsuarioDTO>(content);
+            return UsuarioDto;
+
+        }
+
+        public Boolean EditarUsuario(UsuarioDTO Usuario)
         {
             var client = new HttpClient();
-
-            var str = JsonSerializer.Serialize(Usuario);
-
-            var conteudo = new StringContent(JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaFisica");
-
+            var conteudo = new StringContent(System.Text.Json.JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage(HttpMethod.Put, "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/Usuario");
             request.Content = conteudo;
 
             var resposta = client.SendAsync(request);
+            Task.Delay(1000).Wait();
+            var conteudoResposta = resposta.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var statusResponse = System.Text.Json.JsonSerializer.Deserialize<UsuarioDTO>(conteudoResposta);
+            return statusResponse.Status;
+
+        }
+        #endregion
+
+        #region PessoaFisica
+
+        public Boolean CadastrarPessoaFisica(PessoaFisicaMOD Usuario)
+        {
+            var client = new HttpClient();
+            var conteudo = new StringContent(System.Text.Json.JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaFisica");
+
+            request.Content = conteudo;
+            var resposta = client.SendAsync(request);
             Task.Delay(3000).Wait();
-            return resposta.IsCompleted;
+            var conteudoResposta = resposta.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var statusResponse = System.Text.Json.JsonSerializer.Deserialize<UsuarioDTO>(conteudoResposta);
+            return statusResponse.Status;
         }
 
-        public Boolean VerificarExistePessoaFisica(String Cpf)
+        public Boolean VerificarExistePessoaFisica(String Cpf, String TxEmail)
         {
-            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaFisica?TxCpf=" + Cpf;
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaFisica?TxCpf=" + Cpf + "&TxEmail=" + TxEmail;
             var httpClient = new HttpClient();
 
             var response = httpClient.GetAsync(url).Result;
@@ -64,26 +109,23 @@ namespace MaisLivros.Repository
         #region PessoaJuridica
 
 
-        public bool CadastrarPessoaJuridica(PessoaJuridicaMOD Usuario)
+        public Boolean CadastrarPessoaJuridica(PessoaJuridicaMOD Usuario)
         {
             var client = new HttpClient();
-
-            var str = JsonSerializer.Serialize(Usuario);
-
-            var conteudo = new StringContent(JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
-
+            var conteudo = new StringContent(System.Text.Json.JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage(HttpMethod.Post, "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaJuridica");
-
             request.Content = conteudo;
 
             var resposta = client.SendAsync(request);
             Task.Delay(3000).Wait();
-            return resposta.IsCompleted;
+            var conteudoResposta = resposta.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            var statusResponse = System.Text.Json.JsonSerializer.Deserialize<UsuarioDTO>(conteudoResposta);
+            return statusResponse.Status;
         }
 
-        public Boolean VerificarExistePessoaJuridica(String Cnpj)
+        public Boolean VerificarExistePessoaJuridica(String Cnpj, String TxEmail)
         {
-            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaJuridica?TxCnpj=" + Cnpj;
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaJuridica?TxCnpj=" + Cnpj + "&TxEmail=" + TxEmail;
             var httpClient = new HttpClient();
 
             var response = httpClient.GetAsync(url).Result;

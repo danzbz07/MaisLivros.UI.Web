@@ -1,4 +1,5 @@
 ﻿using MaisLivros.Models;
+using MaisLivros.Repository;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,30 @@ namespace MaisLivros.UI.Web.Controllers
 {
     public class MeuPerfilController : Controller
     {
-        // GET: MeuPerfil
-        public ActionResult Index()
+
+        #region Repositorios
+
+        UsuarioREP _repositorioUsuario = new UsuarioREP();
+
+        #endregion
+
+        public ActionResult EditarUsuario()
         {
-            UsuarioTESTE UsuarioDeTeste = new UsuarioTESTE();
-            return View(UsuarioDeTeste);
+            UsuarioDTO UsuarioDto = _repositorioUsuario.BuscarDadosUsuario(Convert.ToInt32(Session["CdUsuario"]));
+            return View(UsuarioDto);
         }
 
-        public ActionResult editaUsuario(int CdUsuario, String TxNome, String TxEndereco, String TxTelefone, String TxEmail)
+        [HttpPost]
+        public ActionResult EditarUsuario(UsuarioDTO dadosTela)
         {
-            UsuarioTESTE UsuarioDeTeste = new UsuarioTESTE(CdUsuario, TxNome, TxEndereco, TxTelefone, TxEmail);
-            return View(UsuarioDeTeste);
+            dadosTela.CdUsuario = Convert.ToInt32(Session["CdUsuario"]);
+
+            if (_repositorioUsuario.EditarUsuario(dadosTela))
+                TempData["MensagemSucesso"] = "Dados alterado com sucesso!";
+            else
+                TempData["MensagemErro"] = "Ocorreu um erro ao alterar os dados ! ";
+
+            return View(dadosTela);
         }
 
     }

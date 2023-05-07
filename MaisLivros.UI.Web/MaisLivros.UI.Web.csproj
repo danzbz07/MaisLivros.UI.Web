@@ -283,7 +283,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Login\CadastrarUsuario.cshtml" />
     <Content Include="Views\Login\Entrar.cshtml" />
-    <Content Include="Views\MeuPerfil\Index.cshtml" />
+    <Content Include="Views\MeuPerfil\EditarUsuario.cshtml" />
     <Content Include="Views\Shared\_LayoutMeuPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>

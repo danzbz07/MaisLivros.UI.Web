@@ -31,11 +31,11 @@ namespace MaisLivros.UI.Web.Controllers
             if (dadosTela.ChkTpPessoa == "F")
             {
                 PessoaFisicaMOD PessoaFisica = new PessoaFisicaMOD(dadosTela.TxCpf);
+                PessoaFisica.TxEmail = dadosTela.TxEmail;
 
                 //Se nao exister o usuario com o CPF
-                if (!_repositorioUsuario.VerificarExistePessoaFisica(PessoaFisica.Cpf))
+                if (!_repositorioUsuario.VerificarExistePessoaFisica(PessoaFisica.Cpf, PessoaFisica.TxEmail))
                 {
-                    PessoaFisica.TxEmail = dadosTela.TxEmail;
                     PessoaFisica.TxEndereco = dadosTela.TxEndereco;
                     PessoaFisica.TxSenha = dadosTela.TxSenha;
                     PessoaFisica.TxLogin = dadosTela.TxLogin;
@@ -54,7 +54,7 @@ namespace MaisLivros.UI.Web.Controllers
                 }
                 else
                 {
-                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o Usuário já possui Cadastro ";
+                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o CPF e/ou E-mail já estão cadastrados ";
                     return View(dadosTela); 
                 }
             }
@@ -62,11 +62,11 @@ namespace MaisLivros.UI.Web.Controllers
             if (dadosTela.ChkTpPessoa == "J")
             {
                 PessoaJuridicaMOD PessoaJuridica = new PessoaJuridicaMOD(dadosTela.TxCnpj);
+                PessoaJuridica.TxEmail = dadosTela.TxEmail;
 
                 //Se nao exister o usuario com o CPF
-                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.Cnpj))
+                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.Cnpj, PessoaJuridica.TxEmail))
                 {
-                    PessoaJuridica.TxEmail = dadosTela.TxEmail;
                     PessoaJuridica.TxEndereco = dadosTela.TxEndereco;
                     PessoaJuridica.TxSenha = dadosTela.TxSenha;
                     PessoaJuridica.TxLogin = dadosTela.TxLogin;
@@ -85,7 +85,7 @@ namespace MaisLivros.UI.Web.Controllers
                 }
                 else
                 {
-                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o Usuário já possui Cadastro ";
+                    TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar motivo: o CNPJ e/ou E-mail já estão cadastrados ";
                     return View(dadosTela);
                 }
             }
@@ -96,19 +96,27 @@ namespace MaisLivros.UI.Web.Controllers
 
         public ActionResult Entrar()
         {
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Entrar(UsuarioViewMOD dadosTela)
         {
-            UsuarioMOD Usuario = new UsuarioMOD();
+            UsuarioDTO UsuarioDto = new UsuarioDTO();
 
-            Int32 Cdusuario = Usuario.AutenticarUsuario(dadosTela.TxEmail, dadosTela.TxSenha);
+            UsuarioDto = _repositorioUsuario.AutenticarUsuario(dadosTela.TxEmail, dadosTela.TxSenha);
 
-            if (Cdusuario != 0)
+            if (UsuarioDto.CdUsuario != 0)
             {
-                return RedirectToAction("Index", "MeuPerfil");
+                Session["CdUsuario"] = UsuarioDto.CdUsuario;
+                Session["TpUsuario"] = UsuarioDto.TpUsuario;
+                Session["TxIdentificador"] = UsuarioDto.TxIdentificador;
+                return RedirectToAction("EditarUsuario", "MeuPerfil");
+            }
+            else
+            {
+                TempData["MensagemErro"] = "Email e/ou Senha Inválido";
             }
 
             return View();
