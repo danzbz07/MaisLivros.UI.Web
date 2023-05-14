@@ -65,15 +65,30 @@ namespace MaisLivros.Repository
 
         public Boolean CadastrarPessoaFisica(PessoaFisicaMOD Usuario)
         {
+            PessoaFisicaDTO dto = new PessoaFisicaDTO
+            {
+                CdUsuario = Usuario.getCdUsuario(),
+                TxNome = Usuario.getTxNome(),
+                TxEndereco = Usuario.getTxEndereco(),
+                TxTelefone = Usuario.getTxTelefone(),
+                TxSenha = Usuario.getTxSenha(),
+                TxEmail = Usuario.getTxEmail(),
+                AoAtivo = Usuario.getAoAtivo(),
+                AoAdmin = Usuario.getAoAdmin(),
+                Cpf = Usuario.getCPF(),
+                Status = false
+            };
+            var ser = System.Text.Json.JsonSerializer.Serialize(dto);
+
             var client = new HttpClient();
-            var conteudo = new StringContent(System.Text.Json.JsonSerializer.Serialize(Usuario), Encoding.UTF8, "application/json");
+            var conteudo = new StringContent(System.Text.Json.JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage(HttpMethod.Post, "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/PessoaFisica");
 
             request.Content = conteudo;
             var resposta = client.SendAsync(request);
             Task.Delay(3000).Wait();
             var conteudoResposta = resposta.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            var statusResponse = System.Text.Json.JsonSerializer.Deserialize<UsuarioDTO>(conteudoResposta);
+            var statusResponse = System.Text.Json.JsonSerializer.Deserialize<PessoaFisicaDTO>(conteudoResposta);
             return statusResponse.Status;
         }
 

@@ -109,11 +109,6 @@ namespace MaisLivros.Models
             return TxTelefone;
         }
 
-        public String getTxLogin()
-        {
-            return TxLogin;
-        }
-
         public String getTxSenha()
         {
             return TxSenha;
