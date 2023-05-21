@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace MaisLivros.UI.Web.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
 
@@ -114,6 +116,7 @@ namespace MaisLivros.UI.Web.Controllers
                 Session["CdUsuario"] = UsuarioDto.CdUsuario;
                 Session["TpUsuario"] = UsuarioDto.TpUsuario;
                 Session["TxIdentificador"] = UsuarioDto.TxIdentificador;
+                FormsAuthentication.SetAuthCookie(UsuarioDto.CdUsuario.ToString(), false);
                 return RedirectToAction("EditarUsuario", "MeuPerfil");
             }
             else

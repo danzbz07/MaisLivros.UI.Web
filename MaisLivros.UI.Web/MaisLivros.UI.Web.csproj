@@ -134,6 +134,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MeuPerfilController.cs" />
+    <Compile Include="Controllers\SolicitacaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,6 +175,9 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\danzbz-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\danzbz-001-site1 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -285,6 +289,12 @@
     <Content Include="Views\Login\Entrar.cshtml" />
     <Content Include="Views\MeuPerfil\EditarUsuario.cshtml" />
     <Content Include="Views\Shared\_LayoutMeuPerfil.cshtml" />
+    <Content Include="Views\Solicitacao\CriarSolicitacao.cshtml" />
+    <Content Include="Views\Solicitacao\_PartialLivro.cshtml" />
+    <Content Include="Views\Solicitacao\ConsultarSolicitacao.cshtml" />
+    <Content Include="Views\Solicitacao\_PartialDadosLivro.cshtml" />
+    <Content Include="Views\Solicitacao\AdicionarLivro.cshtml" />
+    <Content Include="Views\Solicitacao\RealizarDoacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,50 @@
+﻿@model SolicitacaoMOD
+
+<div class="row pb-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://viverdeblog.com/wp-content/uploads/2017/04/como-escrever-um-livro-topo.png" alt="Imagem Livro" id="foto">
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 col-lg-8">
+                <div class="col">
+                    @Html.Label("Nome do Livro", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Livro.TxNome, "", new { @class = "form-control", @required = true })
+                </div>
+                <div class="col">
+                    @Html.Label("Categoria do Livro", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.DropDownListFor(x => x.Livro.Categoria.CdCategoria, (SelectList)ViewBag.Categorias, "-- Selecione uma opção --", new { @class = "form-control", @required = true })
+                </div>
+                <div class="col">
+                    @Html.Label("Url da Foto do Livro", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Livro.TxUrlFoto, "", new { @class = "form-control", @required = true, @id = "TxUrlFoto" })
+                </div>
+                <div class="col">
+                    @Html.Label("Autor", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Livro.TxAutor, "", new { @class = "form-control", @required = true })
+                </div>
+                <div class="col">
+                    @Html.Label("Idioma", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Livro.TxIdioma, "", new { @class = "form-control", @required = true })
+                </div>
+                <div class="col">
+                    @Html.Label("Edicao", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Livro.TxEdicao, "", new { @class = "form-control", @required = true })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#TxUrlFoto').blur(function () {
+            var novaUrl = $(this).val();
+
+            if (novaUrl.length > 10)
+                $('#foto').attr('src', novaUrl);
+        });
+    });
+</script>

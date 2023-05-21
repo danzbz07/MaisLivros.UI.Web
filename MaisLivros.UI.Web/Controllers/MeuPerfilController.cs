@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace MaisLivros.UI.Web.Controllers
 {
+    [Authorize]
     public class MeuPerfilController : Controller
     {
 

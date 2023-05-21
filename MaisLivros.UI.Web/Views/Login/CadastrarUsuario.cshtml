@@ -47,7 +47,7 @@
                             <div class="col-12">
                                 <label class="font-weight-bold">Tipo de Conta</label> <span class="text-warning display-17px font-weight-bold">*</span>
                                 <div class="form-check p-lg-0">
-                                    @Html.RadioButtonFor(x => x.ChkTpPessoa, "F", new { @id = "pessoaFisica", @checked = "true", @name = "tpConta", @class = "form-check-input" } )
+                                    @Html.RadioButtonFor(x => x.ChkTpPessoa, "F", new { @id = "pessoaFisica", @checked = "true", @name = "tpConta", @class = "form-check-input" })
                                     <label class="form-check-label" for="pessoaFisica">
                                         Pessoa Fisica
                                     </label>
@@ -69,6 +69,7 @@
                             <div class="col-12" id="Cnpj">
                                 @Html.Label("CNPJ:", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
                                 @Html.TextBoxFor(x => x.TxCnpj, "", new { @class = "form-control", @placeholder = "Digite o CNPJ", @id = "cnpj" })
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -113,10 +114,10 @@
 
         if (this.value == 'F') {
             $('#Cpf').fadeIn("slow")
-            
+
             cpf.attr('required', 'required');
             cnpj.removeAttr('required');
-        
+
             $('#Cnpj').fadeOut("slow")
         }
         else if (this.value == 'J') {
@@ -187,7 +188,7 @@
     }
 
 
-    // Máscara 
+    // Máscara
     $("#cpf").mask("000.000.000-00");
     $('#telefone').mask('(00) 0000-0000');
     $('#cnpj').mask('00.000.000/0000-00', { reverse: true });
@@ -231,14 +232,28 @@
     }
 
     //Submit
-    $('form-login').submit(function (event) {
-        var cpfInput = $('input[name="cpf"]');
-        if (cpfInput.prop('required')) {
-            var cpf = cpfInput.val().replace(/[^\d]+/g, '');
-            if (!validarcpf(cpf)) {
+    $('#form-login').submit(function (event) {
+        var cpfInput = $('#cpf');
+        var cnpjInput = $('#cnpj');
+
+        var cnpj = cnpjInput.val().replace(/[^\d]+/g, ''); // Remove caracteres não numéricos do CNPJ
+        var cpf = cpfInput.val().replace(/[^\d]+/g, ''); // Remove caracteres não numéricos do CPF
+        if (cpfInput.is(":visible") && (cpf === "" || !validarCPF(cpf))) {
+            event.preventDefault();
+            console.log('cpf invalido')
+            event.preventDefault();
+            cpfInput.addClass('invalid');
+            cpfInput.after('<div class="cpf-error">CPF inválido</div>');
+        }
+
+        if (cnpjInput.is(":visible")) {
+            console.log('entrou cnpj')
+            var cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+            if (!cnpjRegex.test(cnpj)) {
+                console.log('invali')
                 event.preventDefault();
-                cpfInput.addClass('invalid');
-                cpfInput.after('<div class="cpf-error">CPF inválido</div>');
+                cnpjInput.addClass('is-invalid');
+                cnpjInput.after('<div class="cnpj-error">CNPJ inválido</div>');
             }
         }
     });

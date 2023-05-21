@@ -72,9 +72,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaDTO.cs" />
+    <Compile Include="CategoriaMOD.cs" />
+    <Compile Include="DoacaoMOD.cs" />
+    <Compile Include="LivroDTO.cs" />
+    <Compile Include="LivroMOD.cs" />
+    <Compile Include="LivroStatusMOD.cs" />
     <Compile Include="PessoaFisicaDTO.cs" />
     <Compile Include="PessoaFisicaMOD.cs" />
+    <Compile Include="PessoaJuridicaDTO.cs" />
     <Compile Include="PessoaJuridicaMOD.cs" />
+    <Compile Include="SolicitacaoDTO.cs" />
+    <Compile Include="SolicitacaoMOD.cs" />
+    <Compile Include="SolicitacaoStatusMOD.cs" />
+    <Compile Include="StatusSimNaoENUM.cs" />
     <Compile Include="UsuarioDTO.cs" />
     <Compile Include="UsuarioTESTE.cs" />
     <Compile Include="UsuarioMOD.cs" />

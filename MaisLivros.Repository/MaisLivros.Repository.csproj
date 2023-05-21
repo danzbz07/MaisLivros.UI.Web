@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriaREP.cs" />
+    <Compile Include="SolicitacaoREP.cs" />
     <Compile Include="UsuarioREP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

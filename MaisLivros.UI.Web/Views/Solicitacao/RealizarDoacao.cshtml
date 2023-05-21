@@ -1,0 +1,42 @@
+﻿@model SolicitacaoMOD
+@{
+    ViewBag.Title = "Criar Solicitação";
+    Layout = "~/Views/Shared/_LayoutMeuPerfil.cshtml";
+}
+
+<div class="col-12" style="background-color: #D9D9D9;">
+    <div class="pt-3 row" style="border-bottom:5px solid black;">
+        <div class="col align-self-end">
+            <h2 class="text-center">Adicionar + Liros a Solicitação</h2>
+        </div>
+    </div>
+    <div class="p-3">
+        <h3>Solicitante: @Model.Usuario.getTxNome()</h3>
+        <p>
+            <label>Motivo:</label> @Model.TxMotivo
+        </p>
+
+        @using (Html.BeginForm("AdicionarLivro", "Solicitacao", FormMethod.Post, new { @id = "form-MeuPerfil" }))
+        {
+            @Html.HiddenFor(x => x.CdSolicitacao)
+            @Html.Partial("_PartialDadosLivro", Model.Livro)
+
+            <div class="row">
+                <div class="col-6">
+                    @Html.Label("Selecione o seu método de confirmação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.DropDownListFor(x => x.Doacao.TpConfirmacao, (SelectList)ViewBag.FormasConfirmacao, "-- Selecione uma opção --", new { @class = "form-control", @required = true })
+                </div>
+                <div class="col-6">
+                    @Html.Label("Insira o comprovante de doação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                    @Html.TextBoxFor(x => x.Doacao.TxConfirmacao, "", new { @class = "form-control", @required = true })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a class="btn btn-danger" href="~/Home/Index">Cancelar</a>
+                    <button type="submit" class="btn btn-success float-right mr-2" id="btnSalvarMaisLivros" style="background: #4692E8; ">Cadastrar Doação</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
