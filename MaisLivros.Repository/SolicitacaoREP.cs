@@ -22,7 +22,9 @@ namespace MaisLivros.Repository
                 CdUsuario = Solicitacao.Usuario.getCdUsuario(),
                 CdStatus = 2,
                 TxMotivo = Solicitacao.TxMotivo,
-                Status = false
+                Status = false,
+                TxNome = Solicitacao.TxNome,
+                TxUrlFoto = Solicitacao.TxUrlFoto
             };
             var ser = System.Text.Json.JsonSerializer.Serialize(dto);
 
@@ -131,11 +133,55 @@ namespace MaisLivros.Repository
                 livro.Categoria.TxNome = livroDto.TxCategoriaPrincipal;
                 livro.TxUrlFoto = livroDto.TxUrlFoto;
                 livro.TxIdioma = livroDto.TxIdioma;
+                livro.Doacao.TpConfirmacao = livroDto.TpConfirmacao;
+                livro.Doacao.TxDetalhes = livroDto.TxDetalhes;
 
                 ListaLivro.Add(livro);
             }
 
             return ListaLivro;
+
+        }
+
+
+        public List<SolicitacaoMOD> ObterTodasSolicitacoes()
+        {
+            List<SolicitacaoDTO> ListaSolicitacaoDto = new List<SolicitacaoDTO>();
+            List<SolicitacaoMOD> ListaSolicitacao = new List<SolicitacaoMOD>();
+
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/solicitacao/DoacaoComunidade";
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            Task.Delay(1000).Wait();
+            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            JObject json = JObject.Parse(content);
+            var items = json["items"];
+
+            ListaSolicitacaoDto = items.ToObject<List<SolicitacaoDTO>>();
+
+            foreach (var solicitacaoDto in ListaSolicitacaoDto)
+            {
+                SolicitacaoMOD solicitacao = new SolicitacaoMOD();
+
+                solicitacao.CdSolicitacao = solicitacaoDto.CdSolicitacao;
+                solicitacao.TxNome = solicitacaoDto.TxNome;
+                solicitacao.QtdRecebida = solicitacaoDto.QtdRecebida;
+                solicitacao.QtdSolicitada = solicitacaoDto.QtdSolicitada;
+                solicitacao.TxMotivo = solicitacaoDto.TxMotivo;
+                solicitacao.TxUrlFoto = solicitacaoDto.TxUrlFoto;
+                solicitacao.Usuario.setTxNome(solicitacaoDto.TxNomeUsuario);
+                solicitacao.DtCadastro = solicitacaoDto.DtCadastro;
+                solicitacao.Status.CdStatusSolicitacao = solicitacaoDto.CdStatus;
+                solicitacao.QtdRecebida = solicitacaoDto.QtdRecebida;
+                solicitacao.QtdSolicitada = solicitacaoDto.QtdSolicitada;
+
+                ListaSolicitacao.Add(solicitacao);
+            }
+
+            return ListaSolicitacao;
 
         }
 

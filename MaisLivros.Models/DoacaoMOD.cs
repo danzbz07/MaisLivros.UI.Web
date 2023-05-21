@@ -10,7 +10,7 @@ namespace MaisLivros.Models
     {
         public Int32 CdDoacao { get; set; }
 
-        public String TxConfirmacao { get; set; }
+        public String TxDetalhes { get; set; }
 
         public String TpConfirmacao { get; set; }
     }

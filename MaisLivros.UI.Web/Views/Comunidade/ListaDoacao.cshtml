@@ -1,0 +1,62 @@
+﻿@model SolicitacaoViewMOD
+@{
+    ViewBag.Title = "Criar Solicitação";
+    Layout = "~/Views/Shared/_LayoutMeuPerfil.cshtml";
+}
+
+
+<style>
+    .dados-livro {
+        border-radius: 34px;
+        background-color: #ECECEC;
+        padding: 1rem;
+    }
+</style>
+
+<div class="col-12" style="background-color: #D9D9D9;">
+    <div class="pt-3 row" style="border-bottom:5px solid black;">
+        <div class="col align-self-end">
+            <h2 class="text-center">Lista Doações</h2>
+        </div>
+    </div>
+    <div class="p-3">
+
+        @foreach (var solicitacao in Model.ListaSolicitacao)
+        {
+            <div class="col-12 py-2" style="border-bottom: 1px solid black !important;">
+                <div class="row">
+                    <div class="col-3 m-auto">
+                        <div class="text-center">
+                            <img class="card-img-top w-50" src="@solicitacao.TxUrlFoto" alt="Imagem Solicitacao">
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="col-12 pb-3">
+                            <h4>@solicitacao.TxNome</h4>
+                            <h5>Solicitante - @solicitacao.Usuario.getTxNome()</h5>
+                        </div>
+                        <div class="col-12">
+                            <h5>Descrição</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-8 dados-livro">
+                                @solicitacao.TxMotivo
+                            </div>
+                            <div class="col-4 m-auto">
+                                <h6>Quantidade Solicitada: @solicitacao.QtdSolicitada </h6>
+                                <br />
+                                <h6>Quantidade Recebida: @solicitacao.QtdRecebida</h6>
+                            </div>
+                        </div>
+                        <div class="row py-4">
+                            <div class="col-12 text-right">
+                                <a class="btn btn-success text-right" href="~/Solicitacao/ConsultarSolicitacao?CdSolicitacao=@solicitacao.CdSolicitacao"> Consultar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

@@ -18,7 +18,15 @@ namespace MaisLivros.Models
 
         public Int32 CdSolicitacao { get; set; }
 
+        public Int32 QtdSolicitada { get; set; }
+
+        public Int32 QtdRecebida { get; set; }
+
         public String TxMotivo { get; set; }
+
+        public String TxNome { get; set; }
+
+        public String TxUrlFoto { get; set; }
 
         public DateTime DtCadastro { get; set; }
 
@@ -27,9 +35,6 @@ namespace MaisLivros.Models
 
         //Composicao
         public SolicitacaoStatusMOD Status { get; set; }
-
-        //Composicao
-        public DoacaoMOD Doacao { get; set; }
 
         //Composicao
         public LivroMOD Livro { get; set; }

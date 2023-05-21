@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoriaREP.cs" />
+    <Compile Include="DoacaoREP.cs" />
     <Compile Include="SolicitacaoREP.cs" />
     <Compile Include="UsuarioREP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

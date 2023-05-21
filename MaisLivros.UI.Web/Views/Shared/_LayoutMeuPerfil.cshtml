@@ -31,8 +31,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Doações da Comunidade</a>
                 </li>
+                <li class="nav-item d-lg-none d-md-none d-sm-block pb-2">
+                    <a class="nav-item mr-3 nav-link p-3 btn btn-light text-dark" href="~/MeuPerfil/EditarUsuario">@Session["TxNome"]</a>
+                </li>
+                <li class="nav-item d-lg-none d-md-none d-sm-block">
+
+                    <a class="nav-item mr-3 nav-link p-3 btn btn-light text-dark" href="~/Login/Sair">Sair</a>
+                </li>
             </ul>
         </div>
+        <a class="nav-item mr-3 nav-link p-3 d-sm-none d-none d-lg-block btn btn-light text-dark" href="~/MeuPerfil/EditarUsuario">@Session["TxNome"]</a>
+        <a class="nav-item mr-3 nav-link p-3 d-sm-none d-none d-lg-block btn btn-light text-dark" href="~/Login/Sair">Sair</a>
     </nav>
     <div class="container-fluid p-3">
         @if (TempData["MensagemSucesso"] != null)

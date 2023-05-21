@@ -13,6 +13,7 @@ namespace MaisLivros.Models
         {
             Categoria = new CategoriaMOD();
             Status = new LivroStatusMOD();
+            Doacao = new DoacaoMOD();
         }
 
         public Int32 CdLivro { get; set; }
@@ -32,5 +33,8 @@ namespace MaisLivros.Models
 
         //Composicao
         public CategoriaMOD Categoria { get; set; }
+
+        //Composicao
+        public DoacaoMOD Doacao { get; set; }
     }
 }

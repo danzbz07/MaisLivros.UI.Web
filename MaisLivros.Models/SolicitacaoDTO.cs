@@ -12,6 +12,12 @@ namespace MaisLivros.Models
         [JsonProperty("cdsolicitacao")]
         public Int32 CdSolicitacao { get; set; }
 
+        [JsonProperty("qtdsolicitada")]
+        public Int32 QtdSolicitada { get; set; }
+
+        [JsonProperty("qtdrecebida")]
+        public Int32 QtdRecebida { get; set; }
+
         [JsonProperty("dtcadastro")]
         public DateTime DtCadastro { get; set; }
 
@@ -23,7 +29,13 @@ namespace MaisLivros.Models
 
         [JsonProperty("txmotivo")]
         public String TxMotivo { get; set; }
-        
+
+        [JsonProperty("txnomesolicitacao")]
+        public String TxNome { get; set; }
+
+        [JsonProperty("txurlfoto")]
+        public String TxUrlFoto { get; set; }
+
         [JsonProperty("txnome")]
         public String TxNomeUsuario { get; set; }
 

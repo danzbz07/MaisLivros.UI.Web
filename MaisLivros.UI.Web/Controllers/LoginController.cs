@@ -116,6 +116,7 @@ namespace MaisLivros.UI.Web.Controllers
                 Session["CdUsuario"] = UsuarioDto.CdUsuario;
                 Session["TpUsuario"] = UsuarioDto.TpUsuario;
                 Session["TxIdentificador"] = UsuarioDto.TxIdentificador;
+                Session["TxNome"] = UsuarioDto.TxNome;
                 FormsAuthentication.SetAuthCookie(UsuarioDto.CdUsuario.ToString(), false);
                 return RedirectToAction("EditarUsuario", "MeuPerfil");
             }
@@ -125,6 +126,25 @@ namespace MaisLivros.UI.Web.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Sair()
+        {
+            // Limpar autenticação do Forms Authentication
+            FormsAuthentication.SignOut();
+
+            // Limpar a sessão e os cookies, se necessário
+            Session.Clear();
+            Session.Abandon();
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                authCookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(authCookie);
+            }
+
+            // Redirecionar para a página de login
+            return RedirectToAction("Entrar", "Login");
         }
     }
 }

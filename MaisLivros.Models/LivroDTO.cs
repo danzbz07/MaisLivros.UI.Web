@@ -39,6 +39,12 @@ namespace MaisLivros.Models
         [JsonProperty("txnome")]
         public String TxNome { get; set; }
 
+        [JsonProperty("txdetalhes")]
+        public String TxDetalhes { get; set; }
+
+        [JsonProperty("tpconfirmacao")]
+        public String TpConfirmacao { get; set; }
+
         [JsonProperty("txstatus")]
         public Boolean Status { get; set; }
 

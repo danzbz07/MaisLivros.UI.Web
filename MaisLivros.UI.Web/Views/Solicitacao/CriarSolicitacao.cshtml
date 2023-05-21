@@ -14,11 +14,31 @@
         @using (Html.BeginForm("CriarSolicitacao", "Solicitacao", FormMethod.Post, new { @id = "form-MeuPerfil" }))
         {
             <div class="row mb-3">
-                <div class="col-12">
-                    @Html.Label("Motivo da Solicitação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                    @Html.TextBoxFor(x => x.TxMotivo, "", new { @class = "form-control", @required = true })
+                @*<div class="col-12">*@
+                    @*<div class="row">*@
+                    @*<div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class="card">
+                                <img class="card-img-top" src="https://viverdeblog.com/wp-content/uploads/2017/04/como-escrever-um-livro-topo.png" alt="Imagem Livro" id="fotoSolicitacao">
+                            </div>
+                        </div>*@
+                    @*<div class="col-sm-12 col-md-8 col-lg-8">*@
+                    <div class="col">
+                        @Html.Label("Nome da Solicitação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                        @Html.TextBoxFor(x => x.TxNome, "", new { @class = "form-control", @required = true })
+                    </div>
+                    <div class="col-12">
+                        @Html.Label("Motivo da Solicitação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                        @Html.TextBoxFor(x => x.TxMotivo, "", new { @class = "form-control", @required = true })
+                    </div>
+                    <div class="col-12">
+                        @Html.Label("Url da Foto da Solicitação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
+                        @Html.TextBoxFor(x => x.TxUrlFoto, "", new { @class = "form-control", @required = true, @id = "TxUrlFotoSolicitacao" })
+                    </div>
                 </div>
-            </div>
+                @*</div>
+                    </div>*@
+            @*</div>*@
+
             @Html.Partial("_PartialLivro")
             <div class="row">
                 <div class="col-12">
@@ -30,3 +50,14 @@
         }
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#TxUrlFotoSolicitacao').blur(function () {
+            var novaUrl = $(this).val();
+
+            if (novaUrl.length > 10)
+                $('#fotoSolicitacao').attr('src', novaUrl);
+        });
+    });
+</script>

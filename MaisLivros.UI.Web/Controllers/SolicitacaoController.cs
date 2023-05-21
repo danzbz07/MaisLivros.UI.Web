@@ -15,6 +15,7 @@ namespace MaisLivros.UI.Web.Controllers
 
         private SolicitacaoREP _repositorioSolicitacao = new SolicitacaoREP();
         private CategoriaREP _repositorioCategoria = new CategoriaREP();
+        private DoacaoREP _repositorioDoacao = new DoacaoREP();
 
         #endregion
 
@@ -109,6 +110,23 @@ namespace MaisLivros.UI.Web.Controllers
             Solicitacao.Livro = Solicitacao.ListaLivro.Where(x => x.CdLivro == CdLivro).ToList()[0];
             ObterFormasConfirmacao();
             return View(Solicitacao);
+        }
+
+        [HttpPost]
+        public ActionResult RealizarDoacao(SolicitacaoMOD dadosTela)
+        {
+            dadosTela.Usuario.setCdUsuario(Convert.ToInt32(User.Identity.Name));
+            if (_repositorioDoacao.CadastrarDoacao(dadosTela).Livro.Doacao.CdDoacao != 0)
+            {
+                TempData["MensagemSucesso"] = "Doação cadastrada com sucesso !";
+                return RedirectToAction("ConsultarSolicitacao", new { CdSolicitacao = dadosTela.CdSolicitacao });
+            }
+            else
+            {
+                ObterCategorias();
+                TempData["MensagemErro"] = "Ocorreu um erro ao cadastrar a doação";
+                return View(dadosTela);
+            }
         }
 
         public void ObterCategorias()

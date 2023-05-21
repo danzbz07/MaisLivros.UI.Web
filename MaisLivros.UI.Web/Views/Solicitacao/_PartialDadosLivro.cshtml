@@ -29,6 +29,20 @@
                             <p><label class="bg-danger text-white p-2 rounded">PENDENTE</label></p>
                         }
                     </div>
+                    @if (Model.Doacao.TpConfirmacao != null)
+                    {
+                        <div class="col-6">
+                            @Html.Label("Status", new { @class = "font-weight-bold" })
+                            @if (Model.Doacao.TpConfirmacao == "R")
+                            {
+                                <p><label class="bg-success text-white p-2 rounded">Codigo de Rastreio: @Model.Doacao.TxDetalhes</label></p>
+                            }
+                            else if (Model.Doacao.TpConfirmacao == "F")
+                            {
+                                <p><label class="bg-success text-white p-2 rounded">Nota Fiscal: @Model.Doacao.TxDetalhes</label></p>
+                            }
+                        </div>
+                    }
                     <div class="col-6">
                         @Html.Label("Nome do Livro", new { @class = "font-weight-bold" })
                         <p>@Model.TxNome</p>
@@ -58,7 +72,7 @@
                     {
                         <a class="btn btn-secondary float-right" title="Usuário não é o responsável pela solicitação">Não é possivel Doar - Responsável Solicitação</a>
                     }
-                    else
+                    else if (Convert.ToInt32(User.Identity.Name) != ViewBag.CdUsuario && ViewBag.CdUsuario != null)
                     {
                         <a class="btn btn-success float-right" href=@String.Format("/Solicitacao/RealizarDoacao?CdSolicitacao={0}&CdLivro={1}", ViewBag.CdSolicitacao, Model.CdLivro)>Doar</a>
                     }

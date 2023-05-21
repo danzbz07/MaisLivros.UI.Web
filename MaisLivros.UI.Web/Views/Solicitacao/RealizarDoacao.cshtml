@@ -16,25 +16,26 @@
             <label>Motivo:</label> @Model.TxMotivo
         </p>
 
-        @using (Html.BeginForm("AdicionarLivro", "Solicitacao", FormMethod.Post, new { @id = "form-MeuPerfil" }))
+        @using (Html.BeginForm("RealizarDoacao", "Solicitacao", FormMethod.Post, new { @id = "form-MeuPerfil" }))
         {
             @Html.HiddenFor(x => x.CdSolicitacao)
+            @Html.HiddenFor(x => x.Livro.CdLivro)
             @Html.Partial("_PartialDadosLivro", Model.Livro)
 
-            <div class="row">
+            <div class="row pb-3">
                 <div class="col-6">
                     @Html.Label("Selecione o seu método de confirmação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                    @Html.DropDownListFor(x => x.Doacao.TpConfirmacao, (SelectList)ViewBag.FormasConfirmacao, "-- Selecione uma opção --", new { @class = "form-control", @required = true })
+                    @Html.DropDownListFor(x => x.Livro.Doacao.TpConfirmacao, (SelectList)ViewBag.FormasConfirmacao, "-- Selecione uma opção --", new { @class = "form-control", @required = true })
                 </div>
                 <div class="col-6">
                     @Html.Label("Insira o comprovante de doação", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold">*</span>
-                    @Html.TextBoxFor(x => x.Doacao.TxConfirmacao, "", new { @class = "form-control", @required = true })
+                    @Html.TextBoxFor(x => x.Livro.Doacao.TxDetalhes, "", new { @class = "form-control", @required = true })
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <a class="btn btn-danger" href="~/Home/Index">Cancelar</a>
-                    <button type="submit" class="btn btn-success float-right mr-2" id="btnSalvarMaisLivros" style="background: #4692E8; ">Cadastrar Doação</button>
+                    <button type="submit" class="btn btn-success float-right mr-2" id="btnSalvarMaisLivros">Cadastrar Doação</button>
                 </div>
             </div>
         }

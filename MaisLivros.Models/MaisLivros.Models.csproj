@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="CategoriaDTO.cs" />
     <Compile Include="CategoriaMOD.cs" />
+    <Compile Include="DoacaoDTO.cs" />
     <Compile Include="DoacaoMOD.cs" />
     <Compile Include="LivroDTO.cs" />
     <Compile Include="LivroMOD.cs" />

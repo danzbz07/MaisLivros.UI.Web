@@ -15,19 +15,19 @@
         <h3>Solicitante: @Model.Usuario.getTxNome()</h3>
 
         <p>
-            <label>Data de solicitacao:</label> @Model.DtCadastro.ToShortDateString() -
-            @if (Model.Status.CdStatusSolicitacao == 1)
+            <label>Data de solicitacao:</label> @Model.DtCadastro.ToShortDateString()
+            @*@if (Model.Status.CdStatusSolicitacao == 1)
             {
                 <label class="text-success">DOADO</label>
             }
             else if (Model.Status.CdStatusSolicitacao == 2)
             {
                 <label class="text-danger">PENDENTE</label>
-            }
+            }*@
         </p>
 
         <p>
-            <label>Motivo:</label> @Model.TxMotivo
+            <label>Motivo: @Model.TxMotivo </label>
         </p>
 
         @foreach (var livro in Model.ListaLivro)
@@ -44,7 +44,7 @@
                 }
                 else
                 {
-            <a class="btn btn-secondary float-right" title="Usuário não é o responsável pela solicitação">Não é possivel Doar - Adicionar + Livros - Não é o Responsável Solicitação</a>
+                    <a class="btn btn-secondary float-right" title="Usuário não é o responsável pela solicitação">Não é possivel Doar - Adicionar + Livros - Não é o Responsável Solicitação</a>
                 }
             </div>
         </div>

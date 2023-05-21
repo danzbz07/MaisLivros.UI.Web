@@ -131,6 +131,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ComunidadeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MeuPerfilController.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SolicitacaoViewMOD.cs" />
     <Compile Include="Models\UsuarioViewMOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -295,6 +297,7 @@
     <Content Include="Views\Solicitacao\_PartialDadosLivro.cshtml" />
     <Content Include="Views\Solicitacao\AdicionarLivro.cshtml" />
     <Content Include="Views\Solicitacao\RealizarDoacao.cshtml" />
+    <Content Include="Views\Comunidade\ListaDoacao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
