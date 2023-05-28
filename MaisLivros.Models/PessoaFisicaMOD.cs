@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MaisLivros.Models.Util;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,22 @@ namespace MaisLivros.Models
 {
     public class PessoaFisicaMOD : UsuarioMOD
     {
+        private readonly IValidadorCPF validador;
+
         private String Cpf;
 
-
-        //Intanciar Pessoa Fisica
-        public PessoaFisicaMOD (String cpf)
+        public PessoaFisicaMOD(string cpf, IValidadorCPF validador)
         {
-            //Remover os caracteres especial
-            cpf = Regex.Replace(cpf, @"[^0-9]", "");
-            Cpf = cpf;
+            this.validador = validador;
+
+            if (validador.ValidarCPF(cpf))
+            {
+                Cpf = cpf;
+            }
+            else
+            {
+                throw new ArgumentException("CPF inválido.");
+            }
         }
 
         public String getCPF()

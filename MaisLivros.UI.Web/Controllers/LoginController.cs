@@ -1,9 +1,13 @@
 ﻿using MaisLivros.Models;
+using MaisLivros.Models.Factory;
+using MaisLivros.Models.Util;
+using MaisLivros.Models.ValueObject;
 using MaisLivros.Repository;
 using MaisLivros.UI.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -32,7 +36,9 @@ namespace MaisLivros.UI.Web.Controllers
 
             if (dadosTela.ChkTpPessoa == "F")
             {
-                PessoaFisicaMOD PessoaFisica = new PessoaFisicaMOD(dadosTela.TxCpf);
+                dadosTela.TxCpf = Regex.Replace(dadosTela.TxCpf, @"[^0-9]", "");
+                IValidadorCPF validador = new ValidadorCPF();
+                PessoaFisicaMOD PessoaFisica = new PessoaFisicaMOD(dadosTela.TxCpf, validador);
                 PessoaFisica.setTxEmail(dadosTela.TxEmail);
 
                 //Se nao exister o usuario com o CPF
@@ -64,11 +70,14 @@ namespace MaisLivros.UI.Web.Controllers
 
             if (dadosTela.ChkTpPessoa == "J")
             {
-                PessoaJuridicaMOD PessoaJuridica = new PessoaJuridicaMOD(dadosTela.TxCnpj);
+
+                PessoaJuridicaFactory factoryPessoaJuridica = new PessoaJuridicaFactory();
+                PessoaJuridicaMOD PessoaJuridica = factoryPessoaJuridica.CriarPessoaJuridica(dadosTela.TxCnpj);
+
                 PessoaJuridica.setTxEmail(dadosTela.TxEmail);
 
                 //Se nao exister o usuario com o CPF
-                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.getCnpj(), PessoaJuridica.getTxEmail()))
+                if (!_repositorioUsuario.VerificarExistePessoaJuridica(PessoaJuridica.Cnpj.Valor, PessoaJuridica.getTxEmail()))
                 {
                     PessoaJuridica.setTxEndereco(dadosTela.TxEndereco);
                     PessoaJuridica.setTxSenha(dadosTela.TxSenha);
@@ -123,6 +132,8 @@ namespace MaisLivros.UI.Web.Controllers
             else
             {
                 TempData["MensagemErro"] = "Email e/ou Senha Inválido";
+                //return RedirectToAction("Entrar", "Login");
+
             }
 
             return View();

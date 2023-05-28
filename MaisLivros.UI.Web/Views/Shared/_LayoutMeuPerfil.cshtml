@@ -20,16 +20,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Página Inicial </a>
+                    <a class="nav-link" href="~/Comunidade/ListaDoacao">Página Inicial </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/MeuPerfil/Index">Meu Perfil</a>
+                    <a class="nav-link" href="~/MeuPerfil/EditarUsuario">Meu Perfil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Minhas Doações</a>
+                    <a class="nav-link" href="~/Comunidade/MinhasDoacoes">Minhas Doações</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Doações da Comunidade</a>
+                    <a class="nav-link" href="~/Comunidade/ListaDoacao">Doações da Comunidade</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Solicitacao/CriarSolicitacao">Criar Solicitação</a>
                 </li>
                 <li class="nav-item d-lg-none d-md-none d-sm-block pb-2">
                     <a class="nav-item mr-3 nav-link p-3 btn btn-light text-dark" href="~/MeuPerfil/EditarUsuario">@Session["TxNome"]</a>
@@ -67,3 +70,16 @@
 </body>
 </html>
 
+<script>
+    // Função para bloquear o botão de submit após o envio do formulário
+    function bloquearBotaoSubmit() {
+        // Seleciona o botão de submit pelo atributo 'type' igual a 'submit'
+        var botaoSubmit = document.querySelector('input[type="submit"]');
+
+        // Desabilita o botão de submit
+        botaoSubmit.disabled = true;
+
+        // Adiciona uma classe CSS para estilizar o botão como desabilitado (opcional)
+        botaoSubmit.classList.add('botao-submit-desabilitado'); // Substitua 'botao-submit-desabilitado' pela classe CSS correta
+    }
+</script>

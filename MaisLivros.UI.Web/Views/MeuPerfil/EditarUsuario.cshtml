@@ -33,12 +33,12 @@
                             @if (Session["TpUsuario"].ToString() == "F")
                             {
                                 @Html.Label("CPF", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold"></span>
-                                <label class="form-control bg-gray">@Session["TxIdentificador"].ToString()</label>
+                                <label class="form-control bg-gray" style = "background-color: #EDECEC">@Session["TxIdentificador"].ToString()</label>
                             }
                             else if (Session["TpUsuario"].ToString() == "J")
                             {
                                 @Html.Label("CNPJ", new { @class = "font-weight-bold" }) <span class="text-warning display-17px font-weight-bold"></span>
-                                <label class="form-control">@Session["TxIdentificador"].ToString()</label>
+                                <label class="form-control" style = "background-color: #EDECEC">@Session["TxIdentificador"].ToString()</label>
                             }
                         </div>
                     </div>
@@ -77,12 +77,10 @@
         document.getElementById("TxNome").style.backgroundColor = "#FFFEFE";
         document.getElementById("TxTelefone").style.backgroundColor = "#FFFEFE";
         document.getElementById("TxEndereco").style.backgroundColor = "#FFFEFE";
-        document.getElementById("TxEmail").style.backgroundColor = "#FFFEFE";
 
         $("#TxNome").removeAttr("readonly");
         $("#TxTelefone").removeAttr("readonly");
         $("#TxEndereco").removeAttr("readonly");
-        $("#TxEmail").removeAttr("readonly");
 
     };
 
@@ -94,12 +92,10 @@
         document.getElementById("TxNome").style.backgroundColor = "#EDECEC";
         document.getElementById("TxTelefone").style.backgroundColor = "#EDECEC";
         document.getElementById("TxEndereco").style.backgroundColor = "#EDECEC";
-        document.getElementById("TxEmail").style.backgroundColor = "#EDECEC";
 
         $("#TxNome").prop('readonly', true);
         $("#TxTelefone").prop('readonly', true);
         $("#TxEndereco").prop('readonly', true);
-        $("#TxEmail").prop('readonly', true);
     };
 
     function salvarEdicao() {

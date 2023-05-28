@@ -18,6 +18,8 @@ namespace MaisLivros.Models
 
         public Int32 CdLivro { get; set; }
 
+        public Int32 CdUsuario { get; set; }
+
         public String TxEdicao { get; set; }
 
         public String TxIdioma { get; set; }

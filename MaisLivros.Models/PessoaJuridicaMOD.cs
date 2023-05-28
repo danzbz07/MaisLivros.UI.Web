@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaisLivros.Models.ValueObject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,20 +10,14 @@ namespace MaisLivros.Models
 {
     public class PessoaJuridicaMOD : UsuarioMOD
     {
-        private String Cnpj;
+        private Cnpj _cnpj;
 
-        //Intanciar Pessoa Fisica
-        public PessoaJuridicaMOD(String cnpj)
+        public PessoaJuridicaMOD(Cnpj cnpj)
         {
-            //Remover os caracteres especial
-            cnpj = Regex.Replace(cnpj, @"[^0-9]", "");
-            Cnpj = cnpj;
+            _cnpj = cnpj;
         }
 
-        public String getCnpj()
-        {
-            return Cnpj;
-        }
+        public Cnpj Cnpj => _cnpj;
 
     }
 }

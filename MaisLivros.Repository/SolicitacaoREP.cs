@@ -143,6 +143,47 @@ namespace MaisLivros.Repository
 
         }
 
+        public List<LivroMOD> ObterTodosLivrosPorUsuario(Int32 CdUsuario)
+        {
+            List<LivroDTO> ListaLivroDto = new List<LivroDTO>();
+            List<LivroMOD> ListaLivro = new List<LivroMOD>();
+
+            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/solicitacao/ObterDoacoes";
+            var httpClient = new HttpClient();
+
+            var response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            Task.Delay(1000).Wait();
+            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+            JObject json = JObject.Parse(content);
+            var items = json["items"];
+
+            ListaLivroDto = items.ToObject<List<LivroDTO>>();
+
+            foreach (var livroDto in ListaLivroDto.Where(x => x.CdUsuario == CdUsuario))
+            {
+                LivroMOD livro = new LivroMOD();
+
+                livro.CdLivro = livroDto.CdLivro;
+                livro.TxAutor = livroDto.TxAutor;
+                livro.TxEdicao = livroDto.TxEdicao;
+                livro.TxNome = livroDto.TxNome;
+                livro.Status.CdStatusLivro = livroDto.CdStatusLivro;
+                livro.Categoria.CdCategoria = livroDto.CdCategoriaPrincipal;
+                livro.Categoria.TxNome = livroDto.TxCategoriaPrincipal;
+                livro.TxUrlFoto = livroDto.TxUrlFoto;
+                livro.TxIdioma = livroDto.TxIdioma;
+                livro.Doacao.TpConfirmacao = livroDto.TpConfirmacao;
+                livro.Doacao.TxDetalhes = livroDto.TxDetalhes;
+                livro.CdUsuario = livroDto.CdUsuario;
+
+                ListaLivro.Add(livro);
+            }
+
+            return ListaLivro;
+
+        }
 
         public List<SolicitacaoMOD> ObterTodasSolicitacoes()
         {

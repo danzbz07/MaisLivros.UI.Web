@@ -12,6 +12,9 @@ namespace MaisLivros.Models
         [JsonProperty("cdlivro")]
         public Int32 CdLivro { get; set; }
 
+        [JsonProperty("cdusuario")]
+        public Int32 CdUsuario { get; set; }
+
         [JsonProperty("cdsolicitacao")]
         public Int32 CdSolicitacao { get; set; }
 

@@ -89,7 +89,7 @@
                         <div style="float:right;">
                             <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Voltar</button>
                             <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Continuar</button>
-                            <button type="submit" class="btn btn-primary" id="submit" style="display: none;">Entrar</button>
+                            <button type="submit" class="btn btn-primary" id="submit" style="display: none;">Cadastrar</button>
                         </div>
                     </div>
 
@@ -246,15 +246,15 @@
             cpfInput.after('<div class="cpf-error">CPF inválido</div>');
         }
 
-        if (cnpjInput.is(":visible")) {
-            console.log('entrou cnpj')
-            var cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
-            if (!cnpjRegex.test(cnpj)) {
-                console.log('invali')
-                event.preventDefault();
-                cnpjInput.addClass('is-invalid');
-                cnpjInput.after('<div class="cnpj-error">CNPJ inválido</div>');
-            }
-        }
+        //if (cnpjInput.is(":visible")) {
+        //    console.log('entrou cnpj')
+        //    var cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+        //    if (!cnpjRegex.test(cnpj)) {
+        //        console.log('invali')
+        //        event.preventDefault();
+        //        cnpjInput.addClass('is-invalid');
+        //        cnpjInput.after('<div class="cnpj-error">CNPJ inválido</div>');
+        //    }
+        //}
     });
 </script>

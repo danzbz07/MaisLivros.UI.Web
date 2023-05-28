@@ -76,6 +76,8 @@
     <Compile Include="CategoriaMOD.cs" />
     <Compile Include="DoacaoDTO.cs" />
     <Compile Include="DoacaoMOD.cs" />
+    <Compile Include="Factory\PessoaJuridicaFactory.cs" />
+    <Compile Include="Factory\UsuarioFactory.cs" />
     <Compile Include="LivroDTO.cs" />
     <Compile Include="LivroMOD.cs" />
     <Compile Include="LivroStatusMOD.cs" />
@@ -91,6 +93,10 @@
     <Compile Include="UsuarioTESTE.cs" />
     <Compile Include="UsuarioMOD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\IValidadorCPF.cs" />
+    <Compile Include="Util\ValidadorCPF.cs" />
+    <Compile Include="ValueObject\Cnpj.cs" />
+    <Compile Include="ValueObject\Email.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

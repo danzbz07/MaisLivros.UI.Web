@@ -1,4 +1,5 @@
-﻿using MaisLivros.Repository;
+﻿using MaisLivros.Models;
+using MaisLivros.Repository;
 using MaisLivros.UI.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,14 @@ namespace MaisLivros.UI.Web.Controllers
             Solicitacao.ListaSolicitacao = _repositorioSolicitacao.ObterTodasSolicitacoes();
 
             return View(Solicitacao);
+        }
+
+        public ActionResult MinhasDoacoes()
+        {
+            List<LivroMOD> ListaLivro = new List<LivroMOD>();
+            ListaLivro = _repositorioSolicitacao.ObterTodosLivrosPorUsuario(Convert.ToInt32(User.Identity.Name));
+
+            return View(ListaLivro);
         }
     }
 }

@@ -17,15 +17,25 @@ namespace MaisLivros.Repository
 
         public UsuarioDTO AutenticarUsuario(String TxEmail, String TxSenha)
         {
-            UsuarioDTO UsuarioDto = new UsuarioDTO();
-            var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/Login?TxEmail=" + TxEmail + "&TxSenha=" + TxSenha;
-            var httpClient = new HttpClient();
 
-            var response = httpClient.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-            Task.Delay(1000).Wait();
-            var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-            UsuarioDto = JsonConvert.DeserializeObject<UsuarioDTO>(content);
+            UsuarioDTO UsuarioDto = new UsuarioDTO();
+
+            try
+            {
+                var url = "https://g58346c3a996906-producao.adb.sa-saopaulo-1.oraclecloudapps.com/ords/devuser/usuario/Login?TxEmail=" + TxEmail + "&TxSenha=" + TxSenha;
+                var httpClient = new HttpClient();
+
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
+                Task.Delay(1000).Wait();
+                var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                UsuarioDto = JsonConvert.DeserializeObject<UsuarioDTO>(content);
+            }
+            catch
+            {
+                ;
+            }
+        
             return UsuarioDto;
 
         }
@@ -103,18 +113,15 @@ namespace MaisLivros.Repository
                 var responseContent = response.Content.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(responseContent))
                 {
-                    // Processar o conteúdo retornado aqui
                     return true;
                 }
                 else
                 {
-                    // Tratar o caso em que o conteúdo retornado está vazio
                     return false;
                 }
             }
             else
             {
-                // Tratar o caso em que a requisição falhou
                 return false;
             }
         }
@@ -138,7 +145,7 @@ namespace MaisLivros.Repository
                 TxEmail = Usuario.getTxEmail(),
                 AoAtivo = Usuario.getAoAtivo(),
                 AoAdmin = Usuario.getAoAdmin(),
-                Cnpj = Usuario.getCnpj(),
+                Cnpj = Usuario.Cnpj.Valor,
                 Status = false
             };
 
@@ -166,18 +173,15 @@ namespace MaisLivros.Repository
                 var responseContent = response.Content.ReadAsStringAsync().Result;
                 if (!string.IsNullOrEmpty(responseContent))
                 {
-                    // Processar o conteúdo retornado aqui
                     return true;
                 }
                 else
                 {
-                    // Tratar o caso em que o conteúdo retornado está vazio
                     return false;
                 }
             }
             else
             {
-                // Tratar o caso em que a requisição falhou
                 return false;
             }
         }

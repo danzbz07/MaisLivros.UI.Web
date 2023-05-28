@@ -1,0 +1,87 @@
+﻿@model List<LivroMOD>
+@{
+    ViewBag.Title = "Criar Solicitação";
+    Layout = "~/Views/Shared/_LayoutMeuPerfil.cshtml";
+}
+
+
+<style>
+    .dados-livro {
+        border-radius: 34px;
+        background-color: #ECECEC;
+        padding: 1rem;
+    }
+</style>
+
+<div class="col-12" style="background-color: #D9D9D9;">
+    <div class="pt-3 row" style="border-bottom:5px solid black;">
+        <div class="col align-self-end">
+            <h2 class="text-center">Lista Doações</h2>
+        </div>
+    </div>
+    <div class="p-3">
+
+        @foreach (var livro in Model)
+        {
+            <div class="col-12 pb-3">
+                <div class="row dados-livro">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="text-center">
+                            <img class="card-img-top w-50" src="@livro.TxUrlFoto" alt="Imagem Livro">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-8 col-lg-8">
+                        <div class="row">
+                            <div class="col-6">
+                                @Html.Label("Status", new { @class = "font-weight-bold" })
+                                @if (livro.Status.CdStatusLivro == 1)
+                                {
+                                    <p><label class="bg-success text-white p-2 rounded">DOADO</label></p>
+                                }
+                                else if (livro.Status.CdStatusLivro == 2)
+                                {
+                                    <p><label class="bg-danger text-white p-2 rounded">PENDENTE</label></p>
+                                }
+                            </div>
+                            @if (livro.Doacao.TpConfirmacao != null)
+                            {
+                                <div class="col-6">
+                                    @Html.Label("Status", new { @class = "font-weight-bold" })
+                                    @if (livro.Doacao.TpConfirmacao == "R")
+                                    {
+                                        <p><label class="bg-success text-white p-2 rounded">Codigo de Rastreio: @livro.Doacao.TxDetalhes</label></p>
+                                    }
+                                    else if (livro.Doacao.TpConfirmacao == "F")
+                                    {
+                                        <p><label class="bg-success text-white p-2 rounded">Nota Fiscal: @livro.Doacao.TxDetalhes</label></p>
+                                    }
+                                </div>
+                            }
+                            <div class="col-6">
+                                @Html.Label("Nome do Livro", new { @class = "font-weight-bold" })
+                                <p>@livro.TxNome</p>
+                            </div>
+                            <div class="col-6">
+                                @Html.Label("Categoria do Livro", new { @class = "font-weight-bold" })
+                                <p>@livro.Categoria.TxNome</p>
+                            </div>
+                            <div class="col-6">
+                                @Html.Label("Autor", new { @class = "font-weight-bold" })
+                                <p>@livro.TxAutor</p>
+                            </div>
+                            <div class="col-6">
+                                @Html.Label("Idioma", new { @class = "font-weight-bold" })
+                                <p>@livro.TxIdioma</p>
+                            </div>
+                            <div class="col-6">
+                                @Html.Label("Edicao", new { @class = "font-weight-bold" })
+                                <p>@livro.TxEdicao</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

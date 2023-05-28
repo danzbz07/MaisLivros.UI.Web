@@ -179,6 +179,8 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\danzbz-001-site1 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\danzbz-001-site1 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\danzbz07-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\danzbz07-001-site1 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -298,6 +300,7 @@
     <Content Include="Views\Solicitacao\AdicionarLivro.cshtml" />
     <Content Include="Views\Solicitacao\RealizarDoacao.cshtml" />
     <Content Include="Views\Comunidade\ListaDoacao.cshtml" />
+    <Content Include="Views\Comunidade\MinhasDoacoes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

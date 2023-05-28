@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MaisLivros.Models.ValueObject;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace MaisLivros.Models
 
         private String TxSenha;
 
-        private String TxEmail;
+        private Email _email;
 
         private String AoAtivo;
 
@@ -66,9 +67,9 @@ namespace MaisLivros.Models
             TxSenha = txSenha;
         }
 
-        public void setTxEmail(String txEmail)
+        public void setTxEmail(string txEmail)
         {
-            TxEmail = txEmail;
+            _email = new Email(txEmail);
         }
 
         public void setAoAtivo(String aoAtivo)
@@ -114,9 +115,9 @@ namespace MaisLivros.Models
             return TxSenha;
         }
 
-        public String getTxEmail()
+        public string getTxEmail()
         {
-            return TxEmail;
+            return _email?.Endereco;
         }
 
         public String getAoAtivo()
