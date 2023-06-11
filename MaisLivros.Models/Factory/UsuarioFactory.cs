@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaisLivros.Models.Strategy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,14 @@ namespace MaisLivros.Models.Factory
     {
         public UsuarioMOD CriarUsuario(string txNome, string txEndereco, string txTelefone, string txSenha, string txEmail)
         {
-            // Validações podem ser adicionadas
+            // Criar as instâncias das estratégias de acesso
+            IAcessoStrategy membroStrategy = new MembroAcessoStrategy(txEmail);
+            // Para um usuário com nível de acesso "Membro"
+            UsuarioMOD usuario = new UsuarioMOD();
+            usuario.DefinirEstrategiaAcesso(membroStrategy);
+            // Verificar o acesso e obter as abas liberadas
+            bool acessoPermitido = usuario.VerificarAcesso();
 
-            var usuario = new UsuarioMOD();
             usuario.setTxNome(txNome);
             usuario.setTxEndereco(txEndereco);
             usuario.setTxTelefone(txTelefone);

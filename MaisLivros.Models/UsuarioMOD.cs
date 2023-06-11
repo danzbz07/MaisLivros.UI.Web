@@ -1,4 +1,5 @@
-﻿using MaisLivros.Models.ValueObject;
+﻿using MaisLivros.Models.Strategy;
+using MaisLivros.Models.ValueObject;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -13,6 +14,22 @@ namespace MaisLivros.Models
 {
     public class UsuarioMOD
     {
+        #region Strategy
+        
+        private IAcessoStrategy acessoStrategy;
+
+        public bool VerificarAcesso()
+        {
+            return acessoStrategy.VerificarAcesso();
+        }
+
+        public void DefinirEstrategiaAcesso(IAcessoStrategy estrategia)
+        {
+            acessoStrategy = estrategia;
+        }
+
+        #endregion
+
         #region Prop
 
         private Int32 CdUsuario;
@@ -133,6 +150,11 @@ namespace MaisLivros.Models
         public DateTime getDtCadastro()
         {
             return DtCadastro;
+        }
+
+        public UsuarioMOD()
+        {
+
         }
         #endregion
     }

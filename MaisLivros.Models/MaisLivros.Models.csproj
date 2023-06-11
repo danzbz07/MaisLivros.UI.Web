@@ -89,6 +89,9 @@
     <Compile Include="SolicitacaoMOD.cs" />
     <Compile Include="SolicitacaoStatusMOD.cs" />
     <Compile Include="StatusSimNaoENUM.cs" />
+    <Compile Include="Strategy\AdministradorAcessoStrategy.cs" />
+    <Compile Include="Strategy\IAcessoStrategy.cs" />
+    <Compile Include="Strategy\MembroAcessoStrategy.cs" />
     <Compile Include="UsuarioDTO.cs" />
     <Compile Include="UsuarioTESTE.cs" />
     <Compile Include="UsuarioMOD.cs" />
