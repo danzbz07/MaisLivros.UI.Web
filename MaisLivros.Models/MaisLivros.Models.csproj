@@ -97,6 +97,7 @@
     <Compile Include="Util\ValidadorCPF.cs" />
     <Compile Include="ValueObject\Cnpj.cs" />
     <Compile Include="ValueObject\Email.cs" />
+    <Compile Include="ValueObject\ISBN.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
